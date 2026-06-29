@@ -12,7 +12,7 @@ const AdminViewProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/products');
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
       const grouped = res.data.reduce((acc, product) => {
         if (!acc[product.category]) acc[product.category] = [];
         acc[product.category].push(product);
@@ -34,7 +34,7 @@ const AdminViewProducts = () => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/admin/products/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/admin/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchProducts(); 

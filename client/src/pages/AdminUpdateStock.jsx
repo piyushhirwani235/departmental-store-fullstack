@@ -12,7 +12,7 @@ const AdminUpdateStock = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/products');
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
       const grouped = res.data.reduce((acc, product) => {
         if (!acc[product.category]) acc[product.category] = [];
         acc[product.category].push(product);
@@ -32,7 +32,7 @@ const AdminUpdateStock = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/admin/products/${productId}/stock`, 
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/admin/products/${productId}/stock`, 
         { stock_quantity: newStock }, 
         { headers: { Authorization: `Bearer ${token}` }}
       );

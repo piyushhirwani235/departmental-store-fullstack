@@ -28,7 +28,7 @@ const Cart = () => {
       if (!token) return navigate('/');
 
       await axios.post(
-        'http://localhost:5000/api/orders',
+        `${import.meta.env.VITE_API_URL}/api/orders`,
         { cartItems: cart, totalAmount },
         { headers: { Authorization: `Bearer ${token}` } }
       );

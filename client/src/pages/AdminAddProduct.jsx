@@ -17,7 +17,7 @@ const AdminAddProduct = () => {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/products');
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
       const uniqueCategories = [...new Set(res.data.map(item => item.category))];
       setCategories(uniqueCategories);
       setFilteredCategories(uniqueCategories);
@@ -65,7 +65,7 @@ const AdminAddProduct = () => {
       data.append('category', formData.category.trim());
       if (imageFile) data.append('image', imageFile);
 
-      await axios.post('http://localhost:5000/api/admin/products', data, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/products`, data, {
         headers: { Authorization: `Bearer ${token}` }
       });
       

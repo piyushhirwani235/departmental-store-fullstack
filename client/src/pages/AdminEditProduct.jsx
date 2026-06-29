@@ -16,7 +16,7 @@ const AdminEditProduct = () => {
     // Fetch the single product to populate the form
     const fetchProduct = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/products');
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
         const product = res.data.find(p => p.product_id === parseInt(id));
         if (product) {
           setFormData({
@@ -47,7 +47,7 @@ const AdminEditProduct = () => {
       data.append('category', formData.category);
       if (imageFile) data.append('image', imageFile);
 
-      await axios.put(`http://localhost:5000/api/admin/products/${id}`, data, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/admin/products/${id}`, data, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
