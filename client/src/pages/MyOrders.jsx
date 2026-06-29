@@ -14,7 +14,7 @@ const MyOrders = () => {
       const token = localStorage.getItem('token'); 
       
       // 2. Pass the token securely in the headers using backticks for the URL
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/orders/me`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/orders/me`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -34,7 +34,7 @@ const MyOrders = () => {
     <div className="store-container">
       <header className="store-header">
         <h2>My Order History</h2>
-        <Link to="/" style={{ color: '#007bff', textDecoration: 'none', fontWeight: 'bold' }}>
+        <Link to="/home" style={{ color: '#007bff', textDecoration: 'none', fontWeight: 'bold' }}>
           ← Back to Store
         </Link>
       </header>
@@ -48,7 +48,7 @@ const MyOrders = () => {
           {orders.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '2rem', background: 'white', borderRadius: '8px' }}>
               <h3>You haven't placed any orders yet.</h3>
-              <Link to="/" style={{ display: 'inline-block', marginTop: '10px', padding: '10px 20px', background: '#28a745', color: 'white', textDecoration: 'none', borderRadius: '4px' }}>
+              <Link to="/home" style={{ display: 'inline-block', marginTop: '10px', padding: '10px 20px', background: '#28a745', color: 'white', textDecoration: 'none', borderRadius: '4px' }}>
                 Start Shopping
               </Link>
             </div>
