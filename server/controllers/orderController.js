@@ -36,16 +36,25 @@ exports.createOrder = async (req, res) => {
 // NEW: Fetch orders for the logged-in customer
 exports.getMyOrders = async (req, res) => {
     try {
-        const userId = req.user.id; // We get this securely from the auth middleware
-        
+        // Let's print exactly what the token decoded to!
+        console.log("DECODED USER FROM TOKEN:", req.user);
+
+        // Account for different common naming conventions
+        const userId = req.user.id || req.user.userId || req.user._id;
+
+        // Safety check: Stop the crash before it hits the database
+        if (!userId) {
+            return res.status(400).json({ message: "User ID is missing from the token payload" });
+        }
+
         const [orders] = await db.execute(
-            'SELECT order_id, total_amount, status, created_at FROM orders WHERE user_id = ? ORDER BY created_at DESC',
-            [userId]
+            'SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC',
+            [userId] 
         );
         
-        res.json(orders);
+        res.status(200).json(orders);
     } catch (error) {
         console.error("Error fetching user orders:", error);
-        res.status(500).json({ message: 'Server error fetching your orders' });
+        res.status(500).json({ message: "Server error fetching orders" });
     }
 };
