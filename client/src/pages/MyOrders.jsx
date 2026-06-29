@@ -8,26 +8,27 @@ const MyOrders = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchMyOrders = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          navigate('/login');
-          return;
+  const fetchOrderHistory = async () => {
+    try {
+      // 1. Retrieve the token from storage
+      const token = localStorage.getItem('token'); 
+      
+      // 2. Pass the token securely in the headers using backticks for the URL
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/orders/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
+      });
+      
+      setOrders(res.data);
+    } catch (error) {
+      console.error("Error fetching order history", error);
+      setError("Failed to load your order history");
+    }
+  };
 
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/orders/me`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        
-        setOrders(res.data);
-      } catch (err) {
-        setError('Failed to load your order history.');
-      }
-    };
-
-    fetchMyOrders();
-  }, [navigate]);
+  fetchOrderHistory();
+}, []);
 
   return (
     <div className="store-container">
