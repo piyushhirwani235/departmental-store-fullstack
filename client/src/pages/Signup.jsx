@@ -16,7 +16,7 @@ const Signup = () => {
     try {
       // Send data to our Node.js backend
       await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, formData);
-      navigate('/login'); // Redirect to login on success
+      navigate('/'); // Redirect to login on success
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred during signup');
     }
