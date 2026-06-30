@@ -2,18 +2,18 @@ const db = require('../config/db');
 
 exports.getAllOrders = async (req, res) => {
     try {
-        // Fetch all orders and join with the users table to get the customer's name
-        const query = `
+        // We changed 'u.user_id' to 'u.id' in the JOIN clause below
+        const [orders] = await db.execute(`
             SELECT o.order_id, o.total_amount, o.status, o.created_at, u.name, u.email 
             FROM orders o
-            JOIN users u ON o.user_id = u.user_id
+            JOIN users u ON o.user_id = u.id 
             ORDER BY o.created_at DESC
-        `;
-        const [orders] = await db.execute(query);
-        res.json(orders);
+        `);
+        
+        res.status(200).json(orders);
     } catch (error) {
         console.error("Admin order fetch error:", error);
-        res.status(500).json({ message: 'Server error fetching orders' });
+        res.status(500).json({ message: "Failed to fetch orders" });
     }
 };
 // ... existing getAllOrders code ...
