@@ -134,9 +134,9 @@ const Home = () => {
                               </button>
                             ) : (
                               <div style={{ display: 'inline-flex', alignItems: 'center', border: '2px solid #007bff', borderRadius: '4px', overflow: 'hidden' }}>
-                                <button onClick={() => handleQuantityChange(cartItem, -1)} style={{ background: '#f8f9fa', border: 'none', padding: '8px 15px', cursor: 'pointer', fontSize: '1.2rem', fontWeight: 'bold' }}>-</button>
+                                <button onClick={() => handleQuantityChange(cartItem, -1)} style={{ background: '#000000', border: 'none', padding: '8px 15px', cursor: 'pointer', fontSize: '1.2rem', fontWeight: 'bold' }}>-</button>
                                 <span style={{ padding: '0 20px', fontWeight: 'bold', fontSize: '1.1rem' }}>{cartItem.quantity}</span>
-                                <button onClick={() => handleQuantityChange(cartItem, 1)} style={{ background: '#f8f9fa', border: 'none', padding: '8px 15px', cursor: 'pointer', fontSize: '1.2rem', fontWeight: 'bold' }}>+</button>
+                                <button onClick={() => handleQuantityChange(cartItem, 1)} style={{ background: '#000000', border: 'none', padding: '8px 15px', cursor: 'pointer', fontSize: '1.2rem', fontWeight: 'bold' }}>+</button>
                               </div>
                             )}
                           </div>
